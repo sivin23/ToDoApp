@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 let ejs = require("ejs");
+const Day = require(__dirname+"/DateFunction.js");
 
 const app = express();
 
@@ -14,20 +15,15 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 // Global variables
-var newItems = [];
+const newItems = [];
 
 // Home request
 app.get("/", function (req, res) {
-  let options = {
-    weekday: "long",
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  };
-  let today = new Date();
 
+  // const day = Day.DateFunction();
+  const day = Day.DayFunction();
   res.render("list", {
-    dayOfTheWeek: today.toLocaleDateString("en-US", options),
+    dayOfTheWeek: day,
     newListItem: newItems,
   });
 });
